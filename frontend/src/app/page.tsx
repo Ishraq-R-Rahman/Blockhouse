@@ -1,56 +1,39 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import LineChart from "../components/LineChart";
 import BarChart from "../components/BarChart";
 import PieChart from "../components/PieChart";
+import CandlestickChart from "../components/CandlestickChart";
+import { RootState, AppDispatch } from "../redux/store";
+import {
+    fetchCandlestickData,
+    fetchLineChartData,
+    fetchBarChartData,
+    fetchPieChartData,
+} from "../redux/chartSlice";
 
 const Dashboard = () => {
-    const [lineData, setLineData] = useState<any>(null);
-    const [barData, setBarData] = useState<any>(null);
-    const [pieData, setPieData] = useState<any>(null);
-    const [loading, setLoading] = useState(true);
+    const dispatch: AppDispatch = useDispatch();
 
-    // Base API URL from environment variables
-    const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+    const { candlestick, line, bar, pie, status } = useSelector(
+        (state: RootState) => state.charts
+    );
 
-    // Fetch chart data from API
+    // Fetch chart data on component mount
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const lineRes = await fetch(
-                    `${API_BASE_URL}/api/line-chart-data/`
-                );
-                const lineChart = await lineRes.json();
+        dispatch(fetchCandlestickData());
+        dispatch(fetchLineChartData());
+        dispatch(fetchBarChartData());
+        dispatch(fetchPieChartData());
+    }, [dispatch]);
 
-                const barRes = await fetch(
-                    `${API_BASE_URL}/api/bar-chart-data/`
-                );
-                const barChart = await barRes.json();
-
-                const pieRes = await fetch(
-                    `${API_BASE_URL}/api/pie-chart-data/`
-                );
-                const pieChart = await pieRes.json();
-
-                setLineData(lineChart);
-                setBarData(barChart);
-                setPieData(pieChart);
-                setLoading(false);
-            } catch (error) {
-                console.error("Error fetching chart data:", error);
-                setLoading(false);
-            }
-        };
-
-        fetchData();
-    }, [API_BASE_URL]);
-
-    if (loading) {
+    if (status === "loading") {
         return <div>Loading...</div>;
     }
 
-    if (!lineData || !barData || !pieData) {
+    if (status === "failed") {
         return <div>Failed to load data</div>;
     }
 
@@ -58,22 +41,28 @@ const Dashboard = () => {
         <div>
             <h1>Dashboard</h1>
 
+            {/* Candle Stick Chart */}
+            <div>
+                <h2>Candle Stick Chart</h2>
+                {candlestick && <CandlestickChart data={candlestick} />}
+            </div>
+
             {/* Line Chart */}
             <div>
                 <h2>Line Chart</h2>
-                <LineChart data={lineData} />
+                {line && <LineChart data={line} />}
             </div>
 
             {/* Bar Chart */}
             <div>
                 <h2>Bar Chart</h2>
-                <BarChart data={barData} />
+                {bar && <BarChart data={bar} />}
             </div>
 
             {/* Pie Chart */}
             <div>
                 <h2>Pie Chart</h2>
-                <PieChart data={pieData} />
+                {pie && <PieChart data={pie} />}
             </div>
         </div>
     );
