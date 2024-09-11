@@ -5,15 +5,14 @@
 To get started with the project, follow these instructions:
 
 ### Prerequisites:
-- Docker: Install Docker from [https://www.docker.com/](https://www.docker.com/)
-- Docker Compose: Make sure Docker Compose is available on your system.
+- Docker: [https://www.docker.com/](https://www.docker.com/)
+- Docker Compose
 
 ### Steps:
 1. **Building and Starting the Application**:
 
-    Using Docker Compose, you can start both the backend and frontend containers:
-
-   ```
+    Using Docker Compose, we can start both the backend and frontend containers:
+   ```bash
    docker-compose up --build
    ```
 2. **Accessing the Application**:
@@ -39,5 +38,25 @@ To get started with the project, follow these instructions:
 - Docker Compose: To manage multiple services.
 
 
+## 3. Approach and Thought Process
 
+This project involves creating a full-stack dashboard application with a Next.js frontend and a Django API backend. The key features include:
 
+A. __Frontend__:
+- Built with Next.js to take advantage of server-side rendering.
+- I am using Chart.js to display charts for data visualization.
+- The layout is responsive and handled using Material-UI, allowing for clean and adaptable designs across different screen sizes.
+
+B. __Backend__:
+- A Django backend that serves hardcoded JSON data via APIs.
+- The API endpoints return data for the Candlestick, Line, Bar, and Pie charts.
+
+C. __Testing__:
+- Unit tests for the _Backend_ are written using Django's built-in testing framework.
+- We can run the test using the following command:
+```bash
+docker-compose run backend python manage.py test
+```
+
+D. __Docker__:
+I have dockerized both frontend and backend services, allowing the entire application to be run using Docker Compose. This ensures that anyone can run the project easily without worrying about local environments and dependency setups.
