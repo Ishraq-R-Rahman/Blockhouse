@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: django-backend
+    ports:
+      - "8000:8000"  # Exposing Django app on port 8000
+    volumes:
+      - ./backend:/app  # Sync code with the container
+    environment:
+      - DEBUG=1
+      - SECRET_KEY=your-secret-key
+      - DATABASE_URL=sqlite:///db.sqlite3  # Adjust this based on your database configuration
+    command: python manage.py runserver 0.0.0.0:8000
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: nextjs-frontend
+    ports:
+      - "3000:3000"  # Exposing Next.js app on port 3000
+    volumes:
+      - ./frontend:/app  # Sync code with the container
+    depends_on:
+      - backend
+    environment:
+      - NEXT_PUBLIC_API_BASE_URL=http://localhost:8000
+    command: npm run dev  # Use "npm run start" for production

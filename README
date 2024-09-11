@@ -1,0 +1,43 @@
+# Project: Frontend and Backend Dockerized Dashboard Application
+
+## 1. Setup and Running the Application
+
+To get started with the project, follow these instructions:
+
+### Prerequisites:
+- Docker: Install Docker from [https://www.docker.com/](https://www.docker.com/)
+- Docker Compose: Make sure Docker Compose is available on your system.
+
+### Steps:
+1. **Building and Starting the Application**:
+
+    Using Docker Compose, you can start both the backend and frontend containers:
+
+   ```
+   docker-compose up --build
+   ```
+2. **Accessing the Application**:
+
+    - __Frontend__ : [http://localhost:3000](http://localhost:3000)
+    - __Backend__ : [http://localhost:8000](http://localhost:8000)
+
+
+## 2. Libraries and Tools Used
+
+### Backend (Django) :
+- Python: 3.10
+- Django: For the web framework.
+- Django REST Framework: For creating APIs.
+
+### Frontend (Next.js) :
+- Next.js: For the frontend application.
+- Chart.js: For displaying charts (Candlestick, Line, Bar, Pie charts).
+- Material-UI (MUI): For responsive layouts and design components.
+
+### Tools :
+- Docker: For containerizing both the frontend and backend services.
+- Docker Compose: To manage multiple services.
+
+
+
+

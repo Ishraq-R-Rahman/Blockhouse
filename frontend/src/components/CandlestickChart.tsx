@@ -101,13 +101,20 @@ const CandlestickChart = ({
                 enabled: true,
             },
         },
-        maintainAspectRatio: true, 
-        responsive: true, 
-        animation: false, 
+        maintainAspectRatio: true,
+        responsive: true,
+        animation: false,
     };
 
     return (
-        <div style={{ maxWidth: "800px", margin: "0 auto" }}>
+        <div
+            style={{
+                // maxWidth: "800px",
+                // margin: "0 auto",
+                width: "100%",
+                height: "300px",
+            }}
+        >
             {" "}
             <Chart type="candlestick" data={chartData} options={options} />
         </div>

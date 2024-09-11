@@ -14,6 +14,11 @@ import {
     fetchPieChartData,
 } from "../redux/chartSlice";
 
+// Material-UI imports
+import Grid from "@mui/material/Grid";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
+
 const Dashboard = () => {
     const dispatch: AppDispatch = useDispatch();
 
@@ -38,33 +43,44 @@ const Dashboard = () => {
     }
 
     return (
-        <div>
-            <h1>Dashboard</h1>
+        <Container>
+            <Typography variant="h4" align="center" gutterBottom>
+                Dashboard
+            </Typography>
+            <Grid container spacing={4} justifyContent="center">
+                {/* Candlestick Chart */}
+                <Grid item xs={12} sm={6} md={6}>
+                    <Typography variant="h6" align="center">
+                        Candlestick Chart
+                    </Typography>
+                    {candlestick && <CandlestickChart data={candlestick} />}
+                </Grid>
 
-            {/* Candle Stick Chart */}
-            <div>
-                <h2>Candle Stick Chart</h2>
-                {candlestick && <CandlestickChart data={candlestick} />}
-            </div>
+                {/* Line Chart */}
+                <Grid item xs={12} sm={6} md={6}>
+                    <Typography variant="h6" align="center">
+                        Line Chart
+                    </Typography>
+                    {line && <LineChart data={line} />}
+                </Grid>
 
-            {/* Line Chart */}
-            <div>
-                <h2>Line Chart</h2>
-                {line && <LineChart data={line} />}
-            </div>
+                {/* Bar Chart */}
+                <Grid item xs={12} sm={6} md={6}>
+                    <Typography variant="h6" align="center">
+                        Bar Chart
+                    </Typography>
+                    {bar && <BarChart data={bar} />}
+                </Grid>
 
-            {/* Bar Chart */}
-            <div>
-                <h2>Bar Chart</h2>
-                {bar && <BarChart data={bar} />}
-            </div>
-
-            {/* Pie Chart */}
-            <div>
-                <h2>Pie Chart</h2>
-                {pie && <PieChart data={pie} />}
-            </div>
-        </div>
+                {/* Pie Chart */}
+                <Grid item xs={12} sm={6} md={6}>
+                    <Typography variant="h6" align="center">
+                        Pie Chart
+                    </Typography>
+                    {pie && <PieChart data={pie} />}
+                </Grid>
+            </Grid>
+        </Container>
     );
 };
 

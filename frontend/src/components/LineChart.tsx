@@ -33,6 +33,12 @@ const LineChart = ({ data }: LineChartProps) => {
                     },
                 ],
             }}
+            style={{
+                // maxWidth: "800px",
+                // margin: "0 auto",
+                width: "100%",
+                height: "300px",
+            }}
         />
     );
 };
