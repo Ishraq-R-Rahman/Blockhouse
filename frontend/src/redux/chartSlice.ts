@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 interface CandlestickData {
-    x: string; // date or time
+    x: string;
     open: number;
     high: number;
     low: number;
